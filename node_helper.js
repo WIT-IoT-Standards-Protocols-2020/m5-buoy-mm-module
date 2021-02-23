@@ -9,10 +9,12 @@
 
 const NodeHelper = require('node_helper');
 var request = require('request');
+var moment = require('moment');
 
 module.exports = NodeHelper.create({
 
 	start: function() {
+		console.log(moment().format('YYYY-MM-DDTHH:mm:ss.SSSZZ') + ' M5-buoy helper started ...');
 		this.started = false;
 		this.config = null;
 	},
@@ -21,7 +23,7 @@ module.exports = NodeHelper.create({
 		var self = this;
 		
 		var myUrl = this.config.fileUrl;
-				
+		console.log(moment().format('YYYY-MM-DDTHH:mm:ss.SSSZZ') + ' M5-buoy get Data Request ...');	
 		request({
 			url: myUrl,
 			method: 'GET',
@@ -36,6 +38,7 @@ module.exports = NodeHelper.create({
 
 	socketNotificationReceived: function(notification, payload) {
 		var self = this;
+	
 		if (notification === 'CONFIG' && self.started == false) {
 			self.config = payload;
 			self.sendSocketNotification("STARTED", true);

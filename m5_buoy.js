@@ -6,7 +6,7 @@
  * MIT Licensed.
  */
 
-Module.register('m5-buoy',{
+Module.register('m5_buoy',{
 
 	defaults: {
 		units: config.units,
@@ -33,7 +33,6 @@ Module.register('m5-buoy',{
 
 	start: function() {
 		Log.info('Starting module: ' + this.name);
-
 		this.loaded = false;
 		this.sendSocketNotification('CONFIG', this.config);
 	},
@@ -53,16 +52,13 @@ Module.register('m5-buoy',{
 			return wrapper;
 		}
 
-		var t = this.data.graph;
+		var t = this.data.table;
 		var content = document.createElement("div");
 		content.innerHTML = "";	
 		
-		for (var i in t.datasequences) {
-			content.innerHTML += t.title  + " - " + t.datasequences[i].title + "<br />";
-			for (var j in t.datasequences[i].datapoints) {
-				content.innerHTML += t.datasequences[i].datapoints[j].title + ": " + t.datasequences[i].datapoints[j].value + "<br />";
-			}
-		}
+		
+				content.innerHTML += t.columnNames[10] + ": " + t.rows[0][10] + "<br />";
+			
 		
 		wrapper.appendChild(content);
 
